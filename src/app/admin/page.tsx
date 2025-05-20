@@ -23,7 +23,6 @@ export default function AdminPage() {
     setUploading(true);
     let imageUrl = formData.image;
 
-    // Si hay archivo, subirlo primero
     if (imageFile) {
       const imgData = new FormData();
       imgData.append('image', imageFile);
@@ -83,19 +82,17 @@ export default function AdminPage() {
     const file = e.target.files?.[0] || null;
     setImageFile(file);
     if (file) {
-      setFormData(prev => ({ ...prev, image: '' })); // Limpiar URL si se sube archivo
+      setFormData(prev => ({ ...prev, image: '' }));
     }
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Panel de Administración</h1>
-      
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-            Nombre
-          </label>
+    <div className="max-w-3xl mx-auto p-6 md:p-8 bg-[#181818] rounded-2xl shadow-lg mt-8 mb-12">
+      <h1 className="text-3xl font-bold text-white mb-8 tracking-wide">Panel de Administración</h1>
+      <form onSubmit={handleSubmit} className="space-y-0">
+        {/* Nombre */}
+        <div className="mb-4">
+          <label htmlFor="name" className="text-sm text-gray-300 block mb-1 font-medium">Nombre</label>
           <input
             type="text"
             name="name"
@@ -103,14 +100,13 @@ export default function AdminPage() {
             value={formData.name}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="bg-[#1e1e1e] text-white placeholder-gray-400 border border-[#2a2a2a] rounded-lg w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00bcd4]"
+            placeholder="Nombre del producto"
           />
         </div>
-
-        <div>
-          <label htmlFor="code" className="block text-sm font-medium text-gray-700">
-            Código
-          </label>
+        {/* Código */}
+        <div className="mb-4">
+          <label htmlFor="code" className="text-sm text-gray-300 block mb-1 font-medium">Código</label>
           <input
             type="text"
             name="code"
@@ -118,14 +114,13 @@ export default function AdminPage() {
             value={formData.code}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="bg-[#1e1e1e] text-white placeholder-gray-400 border border-[#2a2a2a] rounded-lg w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00bcd4]"
+            placeholder="Código único"
           />
         </div>
-
-        <div>
-          <label htmlFor="brand" className="block text-sm font-medium text-gray-700">
-            Marca
-          </label>
+        {/* Marca */}
+        <div className="mb-4">
+          <label htmlFor="brand" className="text-sm text-gray-300 block mb-1 font-medium">Marca</label>
           <input
             type="text"
             name="brand"
@@ -133,14 +128,13 @@ export default function AdminPage() {
             value={formData.brand}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="bg-[#1e1e1e] text-white placeholder-gray-400 border border-[#2a2a2a] rounded-lg w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00bcd4]"
+            placeholder="Marca"
           />
         </div>
-
-        <div>
-          <label htmlFor="model" className="block text-sm font-medium text-gray-700">
-            Modelo
-          </label>
+        {/* Modelo */}
+        <div className="mb-4">
+          <label htmlFor="model" className="text-sm text-gray-300 block mb-1 font-medium">Modelo</label>
           <input
             type="text"
             name="model"
@@ -148,14 +142,13 @@ export default function AdminPage() {
             value={formData.model}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="bg-[#1e1e1e] text-white placeholder-gray-400 border border-[#2a2a2a] rounded-lg w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00bcd4]"
+            placeholder="Modelo"
           />
         </div>
-
-        <div>
-          <label htmlFor="category" className="block text-sm font-medium text-gray-700">
-            Categoría
-          </label>
+        {/* Categoría */}
+        <div className="mb-4">
+          <label htmlFor="category" className="text-sm text-gray-300 block mb-1 font-medium">Categoría</label>
           <input
             type="text"
             name="category"
@@ -163,14 +156,13 @@ export default function AdminPage() {
             value={formData.category}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="bg-[#1e1e1e] text-white placeholder-gray-400 border border-[#2a2a2a] rounded-lg w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00bcd4]"
+            placeholder="Categoría"
           />
         </div>
-
-        <div>
-          <label htmlFor="year" className="block text-sm font-medium text-gray-700">
-            Año
-          </label>
+        {/* Año */}
+        <div className="mb-4">
+          <label htmlFor="year" className="text-sm text-gray-300 block mb-1 font-medium">Año</label>
           <input
             type="number"
             name="year"
@@ -178,39 +170,41 @@ export default function AdminPage() {
             value={formData.year}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="bg-[#1e1e1e] text-white placeholder-gray-400 border border-[#2a2a2a] rounded-lg w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00bcd4]"
+            placeholder="Año"
           />
         </div>
-
-        <div>
-          <label htmlFor="image" className="block text-sm font-medium text-gray-700 dark:text-[#b3b3b3]">
-            Imagen del producto
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            name="image"
-            id="image"
-            onChange={handleImageChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#00bcd4] focus:ring-[#00bcd4] bg-[#181818] text-[#f1f1f1]"
-          />
-          <div className="text-xs text-[#b3b3b3] mt-1">O pega una URL de imagen:</div>
-          <input
-            type="url"
-            name="image"
-            id="image-url"
-            value={formData.image}
-            onChange={handleChange}
-            placeholder="https://..."
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#00bcd4] focus:ring-[#00bcd4] bg-[#181818] text-[#f1f1f1]"
-            disabled={!!imageFile}
-          />
+        {/* Imagen */}
+        <div className="mb-4">
+          <label className="text-sm text-gray-300 block mb-1 font-medium">Imagen del producto</label>
+          <div className="flex flex-col gap-2">
+            <div className="border-2 border-dashed border-[#2a2a2a] rounded-lg p-4 flex flex-col items-center justify-center bg-[#1e1e1e]">
+              <input
+                type="file"
+                accept="image/*"
+                name="image"
+                id="image"
+                onChange={handleImageChange}
+                className="w-full text-gray-300 file:bg-[#00bcd4] file:text-white file:rounded-md file:border-0 file:py-2 file:px-4 file:font-semibold file:shadow-sm file:hover:bg-[#00acc1] file:transition"
+              />
+              <span className="text-xs text-gray-400 mt-2">Arrastrá una imagen o hacé click para seleccionar</span>
+            </div>
+            <div className="text-xs text-[#b3b3b3] mt-1">O pega una URL de imagen:</div>
+            <input
+              type="url"
+              name="image"
+              id="image-url"
+              value={formData.image}
+              onChange={handleChange}
+              placeholder="https://..."
+              className="bg-[#1e1e1e] text-white placeholder-gray-400 border border-[#2a2a2a] rounded-lg w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00bcd4] disabled:opacity-60"
+              disabled={!!imageFile}
+            />
+          </div>
         </div>
-
-        <div>
-          <label htmlFor="price" className="block text-sm font-medium text-gray-700">
-            Precio
-          </label>
+        {/* Precio */}
+        <div className="mb-8">
+          <label htmlFor="price" className="text-sm text-gray-300 block mb-1 font-medium">Precio</label>
           <input
             type="number"
             name="price"
@@ -218,14 +212,14 @@ export default function AdminPage() {
             value={formData.price}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="bg-[#1e1e1e] text-white placeholder-gray-400 border border-[#2a2a2a] rounded-lg w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00bcd4]"
+            placeholder="Precio"
           />
         </div>
-
         <button
           type="submit"
           disabled={uploading}
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium bg-[#00bcd4] text-white hover:bg-[#00acc1] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00bcd4] transition-colors"
+          className="w-full bg-[#00bcd4] hover:bg-[#00acc1] text-white font-semibold py-2 px-4 rounded-md shadow-md transition disabled:opacity-60 disabled:cursor-not-allowed text-lg"
         >
           {uploading ? 'Subiendo...' : 'Crear Producto'}
         </button>
