@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from '@/components/Header';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
 
 export const metadata: Metadata = {
   title: "Catálogo de Productos",
@@ -16,19 +17,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es">
-      <body className={inter.className}>
-        <div className="min-h-screen bg-gray-50">
-          <Header />
-          <main className="container mx-auto px-4 py-8">
-            {children}
-          </main>
-          <footer className="bg-gray-800 text-white py-6">
-            <div className="container mx-auto px-4 text-center">
-              <p>&copy; {new Date().getFullYear()} Catálogo de Productos. Todos los derechos reservados.</p>
-            </div>
-          </footer>
-        </div>
+    <html lang="es" className="bg-[#121212] text-[#f1f1f1]">
+      <body className={`${inter.variable} font-sans bg-[#121212] text-[#f1f1f1] min-h-screen flex flex-col`}>
+        <Navbar />
+        <main className="flex-1 w-full px-4 sm:px-6 lg:px-8 pt-20">{/* pt-20 por navbar fija */}
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );
