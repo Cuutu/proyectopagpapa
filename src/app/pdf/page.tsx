@@ -33,32 +33,20 @@ export default function PDFPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="text-center mb-12">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">
-          Catálogo en PDF
-        </h1>
-        <p className="text-lg text-gray-600">
-          Descarga nuestro catálogo completo en formato PDF
-        </p>
-      </div>
-
-      <div className="bg-white shadow-lg rounded-lg p-8">
-        <div className="space-y-6">
-          {/* Sección de descarga */}
-          <div className="text-center">
-            <h2 className="text-xl font-semibold mb-4">Descargar Catálogo</h2>
+    <div className="bg-[#121212] text-gray-200 min-h-[70vh] py-10">
+      <div className="max-w-2xl mx-auto p-6 rounded-xl shadow-md">
+        <h1 className="text-3xl font-bold text-white mb-2">Catálogo en PDF</h1>
+        <p className="text-gray-400 mb-6">Descarga nuestro catálogo completo en formato PDF</p>
+        <div className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl p-6 shadow-lg">
+          {/* Descargar */}
+          <div className="mb-8">
+            <h2 className="text-lg font-semibold text-white mb-3">Descargar Catálogo</h2>
             <a
               href="/catalogo.pdf"
               download
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+              className="bg-[#00bcd4] hover:bg-[#00acc1] text-white py-2 px-4 rounded-md font-medium transition shadow-md flex items-center justify-center gap-2"
             >
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -69,34 +57,21 @@ export default function PDFPage() {
               Descargar PDF
             </a>
           </div>
-
-          {/* Sección de subida (solo para admin) */}
-          <div className="border-t pt-6">
-            <h2 className="text-xl font-semibold mb-4 text-center">
-              Subir Nuevo Catálogo
-            </h2>
-            <div className="max-w-md mx-auto">
-              <label className="block">
-                <span className="sr-only">Elegir archivo PDF</span>
-                <input
-                  type="file"
-                  accept=".pdf"
-                  onChange={handleFileUpload}
-                  disabled={isUploading}
-                  className="block w-full text-sm text-gray-500
-                    file:mr-4 file:py-2 file:px-4
-                    file:rounded-md file:border-0
-                    file:text-sm file:font-semibold
-                    file:bg-blue-50 file:text-blue-700
-                    hover:file:bg-blue-100"
-                />
-              </label>
-              {isUploading && (
-                <p className="mt-2 text-sm text-gray-500">
-                  Subiendo archivo...
-                </p>
-              )}
-            </div>
+          <hr className="my-6 border-gray-700" />
+          {/* Subir */}
+          <div>
+            <h2 className="text-lg font-semibold text-white mb-3">Subir Nuevo Catálogo</h2>
+            <label className="block text-sm text-gray-300 mb-2">Seleccionar archivo PDF</label>
+            <input
+              type="file"
+              accept=".pdf"
+              onChange={handleFileUpload}
+              disabled={isUploading}
+              className="bg-[#2a2a2a] text-gray-100 border border-[#3a3a3a] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00bcd4] file:bg-[#00bcd4] file:text-white file:rounded-md file:border-0 file:py-2 file:px-4 file:font-semibold file:shadow-sm file:hover:bg-[#00acc1] file:transition"
+            />
+            {isUploading && (
+              <p className="mt-2 text-sm text-gray-400">Subiendo archivo...</p>
+            )}
           </div>
         </div>
       </div>
