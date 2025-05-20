@@ -15,17 +15,39 @@ export default function AdminPage() {
     image: '',
     price: ''
   });
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+    setUploading(true);
+    let imageUrl = formData.image;
+
+    // Si hay archivo, subirlo primero
+    if (imageFile) {
+      const imgData = new FormData();
+      imgData.append('image', imageFile);
+      const res = await fetch('/api/upload-image', {
+        method: 'POST',
+        body: imgData,
+      });
+      const data = await res.json();
+      if (res.ok) {
+        imageUrl = data.url;
+      } else {
+        alert('Error al subir la imagen');
+        setUploading(false);
+        return;
+      }
+    }
+
     try {
       const response = await fetch('/api/products', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, image: imageUrl }),
       });
 
       if (response.ok) {
@@ -40,9 +62,12 @@ export default function AdminPage() {
           image: '',
           price: ''
         });
+        setImageFile(null);
       }
     } catch (error) {
       console.error('Error al crear el producto:', error);
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -52,6 +77,14 @@ export default function AdminPage() {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setImageFile(file);
+    if (file) {
+      setFormData(prev => ({ ...prev, image: '' })); // Limpiar URL si se sube archivo
+    }
   };
 
   return (
@@ -150,17 +183,27 @@ export default function AdminPage() {
         </div>
 
         <div>
-          <label htmlFor="image" className="block text-sm font-medium text-gray-700">
-            URL de la imagen
+          <label htmlFor="image" className="block text-sm font-medium text-gray-700 dark:text-[#b3b3b3]">
+            Imagen del producto
           </label>
+          <input
+            type="file"
+            accept="image/*"
+            name="image"
+            id="image"
+            onChange={handleImageChange}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#00bcd4] focus:ring-[#00bcd4] bg-[#181818] text-[#f1f1f1]"
+          />
+          <div className="text-xs text-[#b3b3b3] mt-1">O pega una URL de imagen:</div>
           <input
             type="url"
             name="image"
-            id="image"
+            id="image-url"
             value={formData.image}
             onChange={handleChange}
-            required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            placeholder="https://..."
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#00bcd4] focus:ring-[#00bcd4] bg-[#181818] text-[#f1f1f1]"
+            disabled={!!imageFile}
           />
         </div>
 
@@ -181,9 +224,10 @@ export default function AdminPage() {
 
         <button
           type="submit"
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          disabled={uploading}
+          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium bg-[#00bcd4] text-white hover:bg-[#00acc1] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00bcd4] transition-colors"
         >
-          Crear Producto
+          {uploading ? 'Subiendo...' : 'Crear Producto'}
         </button>
       </form>
     </div>
