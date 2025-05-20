@@ -2,8 +2,9 @@ import SearchBar from '@/components/SearchBar';
 import ProductCard from '@/components/ProductCard';
 import { Suspense } from 'react';
 
-async function getProducts() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
+async function getProducts(searchParams: { search?: string }) {
+  const queryString = searchParams.search ? `?query=${encodeURIComponent(searchParams.search)}` : '';
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products${queryString}`, {
     cache: 'no-store'
   });
   
@@ -14,8 +15,12 @@ async function getProducts() {
   return res.json();
 }
 
-export default async function Home() {
-  const products = await getProducts();
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { search?: string };
+}) {
+  const products = await getProducts(searchParams);
 
   return (
     <div className="space-y-8">

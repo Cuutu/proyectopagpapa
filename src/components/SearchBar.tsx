@@ -1,5 +1,7 @@
+'use client';
+
 import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
@@ -12,10 +14,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSearch(query);
-    router.push({
-      pathname: '/',
-      query: { search: query },
-    });
+    router.push(`/?search=${encodeURIComponent(query)}`);
   };
 
   return (
